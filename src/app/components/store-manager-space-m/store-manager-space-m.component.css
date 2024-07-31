@@ -1,0 +1,159 @@
+.container {
+    margin: 30px;
+}
+/* ---------------------------------- */
+/* -------- Mission-box ------- */
+.container .missions-box {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    max-height: calc(100vh - 160px);
+    overflow-y: auto;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.container .missions-box::-webkit-scrollbar {
+    display: none;
+}
+
+.container .missions-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.container .missions-box .mission {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 20px;
+    padding-right: 20px;
+    border: 1px solid #DDDDDD;
+    border-radius: 20px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 10px 15px 0px;
+}
+
+.container .missions-box .mission .left-side {
+    flex: 60%;
+    margin-right: 5%;
+}
+
+.container .missions-box .mission .left-side .mission-name,
+.container .missions-box .mission .left-side .mission-desc,
+.container .missions-box .mission .left-side .mission-status {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.container .missions-box .mission .left-side .mission-name { 
+    color: black;
+    font-size: clamp(0.875rem, 0.7394rem + 0.678vw, 1.375rem);
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.container .missions-box .mission .left-side .mission-desc {
+    color: #999FA9;
+    font-size: clamp(0.6875rem, 0.5689rem + 0.5932vw, 1.125rem);
+    font-weight: 500;
+    height: 100px;
+    overflow-y: auto;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.container .missions-box .mission .left-side .mission-desc::-webkit-scrollbar {
+    display: none;
+}
+
+.container .missions-box .mission .left-side .mission-status {
+    height: 15px;
+    color: white;
+    font-size: clamp(0.6875rem, 0.6028rem + 0.4237vw, 1rem);
+    font-weight: medium;
+    letter-spacing: 3px;
+    padding: 5px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container .missions-box .mission .left-side .mission-status.completed {
+    background-color: green;
+}
+
+.container .missions-box .mission .left-side .mission-status.inProgress {
+    background-color: #EE9600;
+}
+
+.container .missions-box .mission .left-side .mission-status.canceled {
+    background-color: red;
+}
+
+.container .missions-box .mission .right-side {
+    flex: 30%;
+    margin-left: 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.container .missions-box .mission .right-side .calendar {
+    display: flex;
+    align-items: cente;
+    justify-content: center;
+}
+
+.container .missions-box .mission .right-side .calendar {
+    font-size: 35px;
+}
+
+.container .missions-box .mission .right-side .date-estimation {
+    color: #999FA9;
+    font-size: clamp(0.5625rem, 0.4439rem + 0.5932vw, 1rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container .missions-box .mission .right-side .date-estimation .start-date,
+.container .missions-box .mission .right-side .date-estimation .end-date,
+.container .missions-box .mission .right-side .date-estimation .to {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+/* ################################################ */
+.no-data {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 50px;
+}
+
+.no-data mat-icon {
+    height: 75px;
+    width: 75px;
+    font-size: 75px;
+    color: #EE9600;
+}
+
+.no-data b {
+    color: #999FA9;
+    font-size: medium;
+    letter-spacing: 1.8px;
+}
+/* ---------------------------------- */
+@media screen and (max-width: 1000px) {
+    .container .missions-box {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+}
+
+
+
+

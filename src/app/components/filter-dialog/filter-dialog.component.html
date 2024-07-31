@@ -1,0 +1,25 @@
+<h1 mat-dialog-title class="filter-dialog-title">Filtrer les botiques affichées</h1>
+<div mat-dialog-content class="filter-dialog-content">
+  <mat-form-field>
+    <mat-label>Sélectionner une region</mat-label>
+    <mat-select (selectionChange)="updateSubRegionsList($event.value)">
+      <mat-option *ngFor="let item of availableRegions" [value]="item">{{item.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div class="sparator"></div>
+  <mat-form-field>
+    <mat-label>Sélectionner une sous-region</mat-label>
+    <mat-select (selectionChange)="updateStoresList($event.value)">
+      <mat-option *ngFor="let item of filteredSubRegions" [value]="item" >{{item.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions class="filter-dialog-footer" align="end">
+  <button mat-button [mat-dialog-close]="filteredStores">Annuler</button>
+  <button mat-button [mat-dialog-close]="filteredStores" cdkFocusInitial>Appliquer</button>
+</div>
+
+
+
+
+

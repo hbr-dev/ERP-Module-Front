@@ -1,0 +1,91 @@
+<h1 mat-dialog-title class="mission-dialog-title">Ajouter une mission</h1>
+<div mat-dialog-content class="mission-dialog-content" *ngIf="addNewSubject === false; else addNewSubjectContent">
+    <form [formGroup]="missionForm">
+        <div class="field-container">
+          <mat-form-field>
+            <mat-label>Nom</mat-label>
+            <input matInput formControlName="missionName" />
+            <mat-error *ngIf="missionForm.controls.missionName.hasError('required')">Champ obligatoire *</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="field-container">
+          <mat-form-field>
+            <mat-label>Description</mat-label>
+            <textarea matInput formControlName="missionDescription"></textarea>
+            <mat-error *ngIf="missionForm.controls.missionDescription.hasError('required')">Champ obligatoire *</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="field-container">
+          <mat-form-field>
+            <mat-label>Sujet(s) du mission</mat-label>
+            <mat-select formControlName="missionSubject">
+              <mat-select-trigger>
+                {{ missionForm.controls.missionSubject.value }}
+              </mat-select-trigger>
+              <mat-option *ngFor="let availableSubject of availableSubjects" [value]="availableSubject.name" [disabled]="availableSubject.id===1">{{availableSubject.name}}</mat-option>
+              <div class="add-subject-btn-container">
+                <button class="add-subject-btn" (click)="updateDialogContent()">Ajouter un sujet +</button>
+              </div>
+            </mat-select>
+            <mat-error *ngIf="missionForm.controls.missionSubject.hasError('required')">Selectionner le(s) sujet(s) du mission</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="field-container">
+          <mat-form-field>
+            <mat-label>Période du mission: </mat-label>
+            <mat-date-range-input [rangePicker]="picker">
+              <input matStartDate formControlName="startDate" placeholder="Start date">
+              <input matEndDate formControlName="endDate" placeholder="End date">
+            </mat-date-range-input>
+            <mat-hint class="date-format">MM/DD/YYYY - MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+          
+            <mat-error *ngIf="missionForm.controls.startDate.hasError('required')">Date de début obligatoire *</mat-error>
+            <mat-error *ngIf="missionForm.controls.endDate.hasError('required')">Date de fin obligatoire *</mat-error>
+            <mat-error *ngIf="missionForm.controls.startDate.hasError('matStartDateInvalid')">Date de début non valide</mat-error>
+            <mat-error *ngIf="missionForm.controls.endDate.hasError('matEndDateInvalid')">Date de fin non valide</mat-error>
+          </mat-form-field>
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions class="mission-dialog-footer" align="end">
+  <button mat-button *ngIf="addNewSubject===false" [mat-dialog-close]="availableMissions">Annuler</button>
+  <button mat-button *ngIf="addNewSubject===true" (click)="updateDialogContent()"><mat-icon fontIcon="arrow_back"></mat-icon></button>
+  <button mat-button *ngIf="addNewSubject===true" (click)="addSubject()">Ajouter</button>
+  <button mat-button *ngIf="addNewSubject===false" (click)="addMission()" [disabled]="!missionForm.valid">Enregistrer</button>
+</div>
+<!-- ----------------------------------------------------- -->
+<ng-template #addNewSubjectContent>
+  <div mat-dialog-content class="mission-dialog-content">
+    <form [formGroup]="subjectForm">
+      <div class="field-container">
+        <mat-form-field>
+          <mat-label>Nom du sujet</mat-label>
+          <input matInput formControlName="subjName" />
+          <mat-error *ngIf="subjectForm.controls.subjName.hasError('required')">*: Nommer le sujet</mat-error>
+          <mat-error *ngIf="subjNameExist===true" >Le sujet existe déjà</mat-error>
+        </mat-form-field>
+        <span *ngIf="subjAdded===true" class="success-info">Le sujet est bien sauvegardé.</span>
+        <span *ngIf="subjAdditionFailed===true" class="failed-info">Une erreur se produite réssayer une autre fois.</span>
+      </div>
+    </form>
+  </div>
+</ng-template>
+<!-- ----------------------------------------------------- -->
+<div *ngIf="inProgress===true" class="progress-spinner-container">
+  <mat-spinner></mat-spinner>
+</div>
+<!-- ----------------------------------------------------- -->
+<div *ngIf="missionAdded===true" class="mission-status-container">
+  <div class="icon saved"><mat-icon fontIcon="check_circle" inline="true"></mat-icon></div>
+  <div class="msg saved">Mission bien sauvegardée</div>
+  <button class="cancel-btn" (click)="missionAdded=false">Annuler</button>
+</div>
+<!-- ----------------------------------------------------- -->
+<div *ngIf="failedToSaveMission===true" class="mission-status-container">
+  <div class="icon failed"><mat-icon fontIcon="check_circle" inline="true"></mat-icon></div>
+  <div class="msg failed">Une erreur se produite lors d'enregistrement de mission, réssayer plus tard</div>
+  <button class="cancel-btn" (click)="failedToSaveMission=false">Annuler</button>
+</div>
+

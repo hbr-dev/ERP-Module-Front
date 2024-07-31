@@ -1,0 +1,31 @@
+<div *ngIf="availableVisits.length > 0" class="visits-list">
+    <mat-card *ngFor="let visit of availableVisits" class="visit-card">
+        <mat-card-header>
+            <div mat-card-avatar class="header-image" style="background-image: url('../../../assets/images/profile.png');">
+            </div>
+            <mat-card-title>VISIT-00{{ visit.id }}</mat-card-title>
+            <mat-card-subtitle>{{ getAreaManagerName(visit.id?visit.id:-1) }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-calendar mat-card-image [selected]="visit.visit_date"></mat-calendar>
+        <mat-card-content>
+            <div class="address">
+                <b>{{ getStoreDetails(visit.store_id?visit.store_id:-1).storeName }}: </b>
+                <i style="color: cadetblue;">{{ getStoreDetails(visit.store_id?visit.store_id:-1).storeLocation }}</i>
+                <br>
+                <i style="color: #999FA9; font-size: small;">[{{ getStoreDetails(visit.store_id?visit.store_id:-1).storeAddress }}]</i>
+            </div>
+            <div class="progression">
+                <mat-icon *ngIf="visit.status===1" fontIcon="task_alt" inline="true" style="color: green; font-size: 50px;" matTooltip="Visite terminée"></mat-icon>
+                <mat-icon *ngIf="visit.status===2" fontIcon="pending" inline="true" style="color: #EE9600; font-size: 50px;" matTooltip="Visite en attente"></mat-icon>
+                <mat-icon *ngIf="visit.status===-1" fontIcon="cancel" inline="true" style="color:red; font-size: 50px;" matTooltip="Visite expirée"></mat-icon>
+            </div>
+        </mat-card-content>
+        <mat-card-actions align="end">
+            <button mat-button *ngIf="visit.status === 2" (click)="accomplichVisit(visit.id?visit.id:0)" [disabled]="itsDate(visit) === false" >Effectuée</button>
+        </mat-card-actions>
+    </mat-card>
+</div>
+<div *ngIf="availableVisits.length === 0" class="no-data">
+    <mat-icon fontIcon="warning"></mat-icon>
+    <b>Aucunes données disponibles!</b>
+</div>

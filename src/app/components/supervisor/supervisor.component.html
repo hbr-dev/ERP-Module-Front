@@ -1,0 +1,146 @@
+<!-- ################################## -->
+<div class="header">
+    <div class="section-1">
+        <div class="add-action">
+            <button id="add-mission" (click)="openAddMissionDialog()" *ngIf="infoType==='missions'">Ajouter mission +</button>
+            <button id="add-mission" *ngIf="infoType==='visits'" disabled="true" style="opacity: 0.2; cursor: not-allowed;">Ajouter mission +</button>
+            <button id="add-visit" (click)="openAddVisitDialog()" *ngIf="infoType==='visits'">Ajouter une visite +</button>
+            <button id="add-visit" *ngIf="infoType==='missions'" disabled="true" style="opacity: 0.2; cursor: not-allowed;">Ajouter une visite +</button>
+        </div>
+        <div class="show_hide-filter">
+            <button id="filters-display" (click)="displayFilter()">{{ displayFilterStatus===true?'Masquer filtres' : 'Afficher filtres' }}</button>
+        </div>
+    </div>
+    <div class="section-2" *ngIf="displayFilterStatus === true">
+        <mat-form-field class="filter-selector">
+            <mat-label>Type d'information</mat-label>
+            <mat-select [(value)]="infoType">
+                <mat-option value="missions"> Missions </mat-option>
+                <mat-option value="visits"> Visites </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+</div>
+<!-- ################################## -->
+<div *ngIf="infoType === 'missions' && availableMissions.length > 0" class="missions-list">
+    <div class="item" *ngFor="let item of availableMissions">
+        <div class="mission-details" [style]="">
+            <div class="info">
+                <div class="mission">
+                    <div class="id"><b>MISS-00{{ item.id }}</b></div>
+                    <div class="name"><b>{{ item.name }}</b></div>
+                </div>
+                <div class="store affected" *ngIf="storeIsAvailable(item.id?item.id:-1)===true">
+                    <div class="store-details">
+                        <mat-icon fontIcon="store"></mat-icon>
+                        <b>{{ availableStore?.name }}</b>, 
+                        <i style="color: cadetblue;" *ngIf="availableStore" matTooltip="{{ availableStore.address }}">{{ getFullAddress(availableStore.belongs_to?availableStore.belongs_to:-1) }}</i>
+                    </div>
+                    <div class="affected-areamanager">
+                        <mat-icon fontIcon="person"></mat-icon>
+                        <b>{{ availableAreaManager?.name }}</b>
+                    </div>
+                </div>
+                <div class="store" *ngIf="storeIsAvailable(item.id?item.id:-1)===false && item.status === 2">
+                    <mat-form-field style="width: 100%;">
+                        <mat-label>Affecter la mission à une boutique</mat-label>
+                        <mat-select (selectionChange)="displayUPBtn(item.id?item.id:-1, $event.value)">
+                            <mat-option *ngFor="let store of availableStores" [value]="store.id" [disabled]="store.group_id===1">
+                                <b>{{ store.name }} : </b>
+                                <i><i style="color: cadetblue;">{{ getFullAddress(store.belongs_to?store.belongs_to:-1) }} </i>[ {{ store.address }} ]</i>
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="desc">
+                {{ item.descriprtion }}
+            </div>
+            <div *ngIf="item.status===2" class="status in-progress">
+                <b>En cours ...</b>
+            </div>
+            <div *ngIf="item.status===1" class="status finished">
+                <b>Terminée</b>
+            </div>
+            <div *ngIf="item.status===-1" class="status failed">
+                <b>Expirée</b>
+            </div>
+        </div>
+        <div class="more-details">
+            <div class="date">
+                <div class="start-date">{{ item.start_date | date:'mediumDate' }}</div>
+                <div class="to">jusqu'à</div>
+                <div class="end-date">{{ item.end_date | date:'mediumDate' }}</div>
+            </div>
+            <div class="sub-missions-progress">
+                <div class="progress-bar">
+                    <div class="step" *ngFor="let counter of [].constructor(subMissDetails(item.id?item.id:-1).subMissNBR); let i=index">
+                        <div *ngIf="i < subMissDetails(item.id?item.id:-1).realizedSubMissNBR" class="progression"></div>
+                    </div>
+                </div>
+                <div class="progress-info"><b>{{ subMissDetails(item.id?item.id:-1).realizedSubMissNBR }}</b> du <b>{{ subMissDetails(item.id?item.id:-1).subMissNBR }}</b> sous-missions terminées</div>
+            </div>
+            <div class="actions">
+                <div *ngIf="item.status === 2" class="add-sub-mission"><mat-icon fontIcon="add" (click)="openAddSubMissDialog(item.id?item.id:-1)"></mat-icon></div>
+                <div *ngIf="item.status !== 2" class="add-sub-mission"><mat-icon fontIcon="add" style="opacity: 0.4; cursor: not-allowed;" matTooltip="Mission est fermée!"></mat-icon></div>
+                <div class="sub-missions-list"><mat-icon fontIcon="list" (click)="openSubMissDialog(item.id?item.id:-1)"></mat-icon></div>
+                <div class="action-to-do"><mat-icon fontIcon="notifications"></mat-icon></div>
+                <div class="real-data-msgs"><mat-icon fontIcon="forum"></mat-icon></div>
+            </div>
+        </div>
+        <div class="affect">
+            <div *ngIf="storeIsAvailable(item.id?item.id:-1)===false" class="affect-btn-container">
+                <button 
+                [ngClass]="{'affect-btn' : displayUpdateBtn===true && relatedMission===item.id}" 
+                [disabled]="relatedMission!==item.id || displayUpdateBtn===false" 
+                (click)="createAffectation()"
+                >
+                    affecter la mission
+                </button>
+            </div>
+            <div *ngIf="storeIsAvailable(item.id?item.id:-1)===true" class="updateAff-container">
+                <button *ngIf="item.status === 2" class="updateAff-btn" (click)="deleteAff(item.id?item.id:-1)"><mat-icon fontIcon="edit_note"></mat-icon></button>
+                <button *ngIf="item.status !== 2" class="updateAff-btn"><mat-icon fontIcon="edit_note"></mat-icon></button>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="infoType === 'missions' && availableMissions.length === 0" class="no-data">
+    <mat-icon fontIcon="warning"></mat-icon>
+    <b>Aucunes données disponibles!</b>
+</div>
+<!-- ################################## -->
+<div *ngIf="infoType === 'visits' && availableVisits.length > 0" class="visits-list">
+    <mat-card *ngFor="let visit of availableVisits" class="visit-card">
+        <mat-card-header>
+            <div mat-card-avatar class="header-image" style="background-image: url('../../../assets/images/profile.png');">
+            </div>
+            <mat-card-title>VISIT-00{{ visit.id }}</mat-card-title>
+            <mat-card-subtitle>{{ getAreaManagerName(visit.id?visit.id:0) }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-calendar mat-card-image [selected]="visit.visit_date"></mat-calendar>
+        <mat-card-content>
+            <div class="address">
+                <b>{{ getStoreDetails(visit.store_id?visit.store_id:0).storeName }}: </b>
+                <i style="color: cadetblue;">{{ getStoreDetails(visit.store_id?visit.store_id:0).storeLocation }}</i>
+                <br>
+                <i style="color: #999FA9; font-size: small;">[{{ getStoreDetails(visit.store_id?visit.store_id:0).storeAddress }}]</i>
+            </div>
+            <div class="progression">
+                <mat-icon *ngIf="visit.status===1" fontIcon="task_alt" inline="true" style="color: green; font-size: 50px;" matTooltip="Visite terminée"></mat-icon>
+                <mat-icon *ngIf="visit.status===2" fontIcon="pending" inline="true" style="color: #EE9600; font-size: 50px;" matTooltip="Visite en attente"></mat-icon>
+                <mat-icon *ngIf="visit.status===-1" fontIcon="cancel" inline="true" style="color:red; font-size: 50px;" matTooltip="Visite échouée"></mat-icon>
+            </div>
+        </mat-card-content>
+        <mat-card-actions align="end">
+            <button mat-button *ngIf="visit.status === 2" (click)="cancelVisit(visit.id?visit.id:0)" >Annuler visite</button>
+            <button mat-button *ngIf="visit.status !== 2" (click)="deleteVisit(visit.id?visit.id:0)" >Supprimer</button>
+        </mat-card-actions>
+    </mat-card>
+</div>
+<div *ngIf="infoType === 'visits' && availableVisits.length === 0" class="no-data">
+    <mat-icon fontIcon="warning"></mat-icon>
+    <b>Aucunes données disponibles!</b>
+</div>
+<!-- ################################## -->
+

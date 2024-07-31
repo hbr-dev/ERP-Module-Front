@@ -1,0 +1,57 @@
+.qst-container {
+    position: relative;
+    border: 1px solid #999fa986;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    z-index: 1;
+}
+
+.qst-container .answers {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.qst-container .answers .yes,
+.qst-container .answers .no {
+    margin-left: 10px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.qst-container .answers .yes {
+    color: green;
+    font-weight: bold;
+}
+
+.qst-container .answers .no {
+    color: red;
+    font-weight: bold;
+}
+
+.qst-container .answer-indicator {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    border-radius: 10px;
+}
+
+.qst-container .answer-indicator.yes {
+    background-color: rgba(0, 128, 0, 0.2);
+    border: 1px solid green;
+}
+
+.qst-container .answer-indicator.no {
+    background-color: rgba(128, 0, 0, 0.2);
+    border: 1px solid red;
+}
+
+.qst-container .answer-indicator.no-answer {
+    background-color: transparent;
+}
+

@@ -1,0 +1,10 @@
+.filter-dialog-content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.filter-dialog-content .sparator {
+    width: 20px;
+}

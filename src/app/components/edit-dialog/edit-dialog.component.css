@@ -1,0 +1,42 @@
+.update-form .field {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.update-form .error-message {
+    font-size: clamp(0.5625rem, 0.5117rem + 0.2542vw, 0.75rem);
+}
+
+.success-info {
+    display: block;
+    margin-top: 10px;
+    font-size: clamp(0.5625rem, 0.5117rem + 0.2542vw, 0.75rem);
+    letter-spacing: 1.5px;
+    color: green;
+    opacity: 0;
+    animation: fade-in 7s ease-in forwards;
+}
+
+.failed-info {
+    display: block;
+    margin-top: 10px;
+    font-size: clamp(0.5625rem, 0.5117rem + 0.2542vw, 0.75rem);
+    letter-spacing: 1.5px;
+    color: red;
+    opacity: 0;
+    animation: fade-in 7s ease-in forwards;
+}
+
+@keyframes fade-in {
+    5% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 0.9;
+    }
+    100% {
+        opacity: 0;
+        display: none;
+    }
+}

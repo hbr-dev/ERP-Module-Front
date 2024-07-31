@@ -1,0 +1,90 @@
+<div class="affectation-content">
+    <div class="stores-section">
+        <div class="stores-list">
+            <div class="store" *ngFor="let store of availableStores; let i = index" (click)="updateSelectedStoreList(store?store:{})">
+                <mat-icon fontIcon="store"></mat-icon>
+                <p>{{ store.name }}</p>
+                <div class="selected-store-indicator" *ngIf="selectedStoresList.indexOf(store) !== -1">
+                    <mat-icon fontIcon="check_box"></mat-icon>
+                </div>
+            </div>
+            <div class="store" (click)="openAddStoreDialog()">
+                <mat-icon fontIcon="add"></mat-icon>
+                <p>Ajouter une boutique</p>
+            </div>
+            <div *ngIf="availableStores.length > 0" class="filter">
+                <div class="btn-filter">
+                    <mat-icon class="filter-icon" fontIcon="filter_alt" inline="true" (click)="openFilterDialog()" ></mat-icon>
+                </div>
+            </div>
+        </div>
+        <div class="affectation-result">
+            <div class="selected-area-manager" *ngIf="selectedAreaManager?.id">
+                <div class="name">
+                    <b>{{ selectedAreaManager?.name }}</b>
+                </div>
+                <div class="image">
+                    <img src="" alt="" srcset="../../../assets/images/profile.png">
+                </div>
+            </div>
+            <div class="selected-area-manager" *ngIf="!selectedAreaManager?.id">
+                <div class="name">
+                    <b>Sélectionner un Area-manager</b>
+                </div>
+                <div class="image">
+                    <img src="../../../assets/images/unknown.png" alt="">
+                </div>
+            </div>
+            <div class="affectation">
+                <img src="../../../assets/images/right-arrow.png" alt="">
+            </div>
+            <div class="stores-info">
+                <div class="container">
+                    <div class="store" *ngFor="let selectedStore of selectedStoresList">
+                        <div class="affected"></div>
+                        <div class="name">{{ selectedStore.name }}</div>
+                    </div>
+                </div>
+                <div class="total-stores">
+                    <b>Boutiques selectionnées 20</b>
+                </div>
+                <div class="create-group">
+                    <b *ngIf="groupName; else groupNameBtn" (click)="openGroupByDialog()" >&#8618; {{ groupName }}</b>
+                    <ng-template #groupNameBtn>
+                        <button style="height: 35px;">
+                            <b (click)="openGroupByDialog()">&#8618; + groupe</b>
+                        </button>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="area-managers-section">
+        <div class="title">
+            <b>Liste des Area-Managers : </b>
+            <div class="search">
+                <input class="search-field" type="search" placeholder="chercher un area-manager..." (keyup)="applyFilter($event)">
+                <mat-icon class="search-icon" fontIcon="search" inline="true"></mat-icon>
+            </div>
+        </div>
+        <div *ngIf="filteredAreaManagers.length > 0; else notfound" class="area-managers-list">
+            <div class="area-manager" *ngFor="let item of filteredAreaManagers" (click)="updateSelectedAreaManager(item.id?item.id:0)" >
+                <div class="profile-image"><img src="../../../assets/images/profile.png" alt="" srcset="../../../assets/images/profile.png"></div>
+                <div class="name">{{ item.name }}</div>
+                <div class="selected-areamanager-indicator" *ngIf="selectedAreaManager?.id && selectedAreaManager?.id===item.id">
+                    <mat-icon 
+                    fontIcon="check_box"
+                    inline="true"
+                    style="font-size: 35px;">
+                    </mat-icon>
+                </div>
+            </div>
+        </div>
+        <ng-template #notfound>
+            <div class="area-managers-list empty">
+                <mat-icon fontIcon="warning"></mat-icon>
+                <p>Aucun area-manager trouvé</p>
+            </div>
+        </ng-template>
+    </div>
+</div>

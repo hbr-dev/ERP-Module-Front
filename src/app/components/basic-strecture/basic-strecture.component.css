@@ -1,0 +1,60 @@
+.container {
+    width: 100vw;
+    height: 100vh;
+    border-left: 1px solid rgba(0, 0, 0, 0.5);
+    background-color: white;
+}
+/* ########################################## */
+/* ########################################## */
+.container .sidenav {
+    width: 300px;
+    padding: 20px;
+    background-color: #DDDDDD;
+}
+
+.container .sidenav .drop-down-menu {
+    background-color: #DDDDDD;
+}
+
+.container .sidenav .drop-down-menu .parent-node {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #3968B0;
+}
+
+.container .sidenav .drop-down-menu .child-node {
+    color: #999FA9;
+}
+
+.container .sidenav .drop-down-menu .child-node:hover {
+    cursor: pointer;
+    color: #3968B0;
+}
+/* ########################################## */
+/* ########################################## */
+/* .container .content {
+} */
+/* ------------------- */
+.content .navigation {
+    background-color: #DDDDDD;
+    height: 65px;
+    display: flex;
+    align-items: center;
+}
+
+/* .content .navigation .toggle-btn {
+
+} */
+
+.content .navigation .toggle-btn button {
+    outline: none;
+    border: none;
+    color: #999FA9;
+    background-color: transparent;
+}
+
+.content .navigation .title {
+    color: #3968B0;
+}
+/* ------------------- */

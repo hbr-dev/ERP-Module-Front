@@ -1,0 +1,50 @@
+<div mat-dialog-title>
+        <h1>
+            <button *ngIf="displayQSTs===true" class="back-btn" (click)="displayQSTs=false"> 
+                <mat-icon fontIcon="arrow_back"></mat-icon> 
+            </button>
+            Sous missions
+        </h1>
+</div>
+<div mat-dialog-content *ngIf="displayQSTs===false" class="dialog-content">
+    <div *ngIf="affectedSubMissions.length===0" class="no-data">
+        <div class="icon"><mat-icon fontIcon="warning" inline="false"></mat-icon></div>
+        <div class="txt">Aucune sous-mission affectée</div>
+    </div>
+    <div *ngFor="let item of affectedSubMissions" class="sub-miss">
+        <div class="left-section">
+            <div class="code">SUB-MIS{{ item.id }}</div>
+            <div class="name"><b>{{ item.name }}</b></div>
+            <div class="all_questions-href" (click)="getAffectedQsts(item.id?item.id:-1)">Questions &rsaquo;</div>
+        </div>
+        <div class="right-section">
+            <div class="detail qsts-details">07 Questions</div>
+            <div class="detail date"><b>{{ item.created_at | date:'mediumDate' }}</b></div>
+            <div class="detail status">
+                <div *ngIf="item.status===1" class="sts valid">Effectuée</div>
+                <div *ngIf="item.status===2" class="sts in-progress">En cours...</div>
+                <div *ngIf="item.status===-1" class="sts canceled">Annulée</div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ----------------------------------- -->
+<div mat-dialog-content *ngIf="displayQSTs===true" class="dialog-content">
+    <div *ngIf="filteredQSTsSubMiss.length===0" class="no-data">
+        <div class="icon"><mat-icon fontIcon="warning"></mat-icon></div>
+        <div class="txt">Aucun question attaché</div>
+    </div>
+    <div *ngFor="let item of filteredQSTsSubMiss; let i=index" class="qst-container">
+        <p *ngIf="item.question_id" class="qst">
+            {{ i + 1 }}. {{ availableQuestions[item.question_id - 1].question }}
+        </p>
+        <mat-icon *ngIf="item.answer===1" class="response yes" fontIcon="check_circle"></mat-icon>
+        <mat-icon *ngIf="item.answer===2" class="response no" fontIcon="dangerous"></mat-icon>
+        <mat-icon *ngIf="item.answer===-1" class="response null" fontIcon="pending"></mat-icon>
+    </div>
+</div>
+<!-- ----------------------------------- -->
+<div mat-dialog-actions align="end">
+    <button mat-button (click)="onCancel()">Annuler</button>
+    <button mat-button (click)="onCancel()" cdkFocusInitial>Ok</button>
+</div>

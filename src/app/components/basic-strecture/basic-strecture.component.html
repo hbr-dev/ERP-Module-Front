@@ -1,0 +1,45 @@
+<mat-drawer-container class="container" autosize>
+    <!-- ----------------------------------------------------------------------- -->
+    <mat-drawer #drawer class="sidenav" mode="side">
+        <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="drop-down-menu">
+            <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+                <div class="child-node" (click)="updatePageContent(node)">
+                    {{node.name}}
+                </div>
+            </mat-tree-node>
+            <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding class="parent-node">
+                <b style="cursor: pointer;">{{node.name}}</b>
+                <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
+                    <mat-icon class="mat-icon-rtl-mirror">
+                        {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_left'}}
+                    </mat-icon>
+                </button>
+            </mat-tree-node>
+        </mat-tree>
+    </mat-drawer>
+    <!-- ----------------------------------------------------------------------- -->
+    <div class="content">
+        <!-- ################################## -->
+        <div class="navigation">
+            <div class="toggle-btn">
+                <button type="button" mat-button (click)="drawer.toggle()">
+                    <mat-icon fontIcon="menu"></mat-icon>
+                </button>
+            </div>
+            <div class="title">
+                <h3 *ngIf="parentNode === 1">Bo/ Superviseur</h3>
+                <h3 *ngIf="parentNode === 2">Area-manager</h3>
+                <h3 *ngIf="parentNode === 3">Store-manager</h3>
+            </div>
+        </div>
+        <!-- ################################### -->
+        <app-area-manager-management *ngIf="pageContentMapper == 1"></app-area-manager-management>
+        <app-affectation *ngIf="pageContentMapper == 2"></app-affectation>
+        <app-supervisor *ngIf="pageContentMapper == 3"></app-supervisor>
+        <app-area-manager-space *ngIf="pageContentMapper == 4"></app-area-manager-space>
+        <app-area-manager-visits *ngIf="pageContentMapper == 5"></app-area-manager-visits>
+        <app-store-manager-space-m *ngIf="pageContentMapper == 6"></app-store-manager-space-m>
+        <app-store-manager-space-v *ngIf="pageContentMapper == 7"></app-store-manager-space-v>
+    </div>
+    <!-- ----------------------------------------------------------------------- -->
+</mat-drawer-container>

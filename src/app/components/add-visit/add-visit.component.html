@@ -1,0 +1,39 @@
+<h1 mat-dialog-title class="visit-dialog-title">Ajouter une visite:</h1>
+<div mat-dialog-content class="visit-dialog-content">
+    <form [formGroup]="visitForm">
+        <div class="field-container">
+            <mat-form-field>
+                <mat-label>Date de visite</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="visitDate">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="visitForm.controls.visitDate.hasError('required')">Date de viste est obligatoire *</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="field-container">
+            <mat-form-field>
+                <mat-label>Boutique(s) en question</mat-label>
+                <mat-select [formControl]="visitForm.controls.storeId" (selectionChange)="updateAreaManager($event.value)">
+                    <mat-option *ngFor="let store of availableStores" [value]="store.id"[disabled]="store.group_id===1">{{store.name}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="visitForm.controls.storeId.hasError('required')">Selectionner une boutique *</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="field-container">
+            <mat-form-field>
+                <mat-label>Responsable du visite</mat-label>
+                <input matInput disabled="true" [value]="selectedAreaManager">
+            </mat-form-field>
+        </div>
+    </form>
+    <span *ngIf="failedToAddVisit===true" class="failed-info">Impossible d'ajouter la visite, réssayer ulturièrement.</span>
+    <span *ngIf="visitAdded===true" class="success-info">Visite est bien ajoutée.</span>
+</div>
+<div mat-dialog-actions class="mission-dialog-footer" align="end">
+    <button mat-button [mat-dialog-close]="availableVisits">Annuler</button>
+    <button mat-button (click)="addVisit()" [disabled]="!visitForm.valid">Enregistrer</button>
+</div>
+<div *ngIf="inProgress===true" class="progress-spinner-container">
+    <mat-spinner></mat-spinner>
+</div>

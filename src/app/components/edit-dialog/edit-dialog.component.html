@@ -1,0 +1,29 @@
+<h1 mat-dialog-title class="mission-dialog-title">Modification</h1>
+<div mat-dialog-content class="mission-dialog-content">
+    <p>Vous êtes sur le point de modifier l'area-manger n° {{ areaManagerData.areaManagerId }}</p>
+    <form class="update-form" [formGroup]="editAreaManagerForm">
+        <mat-form-field class="field">
+          <mat-label>Area-manager nom</mat-label>
+          <input matInput placeholder="{{ areaManagerData.areaManagerName }}" value="{{ areaManagerData.areaManagerName }}" formControlName="nameController">
+          <mat-error class="error-message" *ngIf="editAreaManagerForm.controls.nameController.hasError('required')">Champ est obligatoire *</mat-error>
+        </mat-form-field>
+      
+        <mat-form-field class="field">
+          <mat-label>Area-manager e-mail</mat-label>
+          <input matInput name="email" placeholder="{{ areaManagerData.areaManagerEmail }}" value="{{ areaManagerData.areaManagerEmail }}" formControlName="emailController" />
+          <mat-error class="error-message" *ngIf="editAreaManagerForm.controls.emailController.hasError('required')">Champ est obligatoire *</mat-error>
+          <mat-error class="error-message" *ngIf="editAreaManagerForm.controls.emailController.hasError('email')">E-mail non valide!</mat-error>
+        </mat-form-field>
+    </form>
+    <span *ngIf="emailExists===true" class="failed-info">E-mail exisite déjà!</span>
+    <span *ngIf="failedToEdit===true" class="failed-info">Impossible de modifier l'area-manager, réssayer ulturièrement.</span>
+    <span *ngIf="areaManagerEdited===true" class="success-info">Area-manager est bien modifé.</span>    
+</div>
+<div mat-dialog-actions class="mission-dialog-footer" align="end">
+  <button mat-button [mat-dialog-close]="areaManagers">Annuler</button>
+  <button mat-button [disabled]="!editAreaManagerForm.valid" (click)="updateAreaManager()" >Modifier</button>
+</div>
+
+
+
+

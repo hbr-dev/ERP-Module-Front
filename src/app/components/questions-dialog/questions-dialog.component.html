@@ -1,0 +1,21 @@
+<h1 mat-dialog-title class="mission-dialog-title">{{ data.submissionName }}</h1>
+<div mat-dialog-content class="mission-dialog-content">
+    <div class="qst-container" *ngFor="let qst of getRelatedQSTs()">
+        <div class="qst">
+            {{ qst.id }}. {{ qst.question }}
+        </div>
+        <div class="answers">
+            <div class="yes" (click)="updateAnswer(qst.id?qst.id:-1, 1)">Oui</div>
+            <div class="no" (click)="updateAnswer(qst.id?qst.id:-1, 2)">Non</div>
+        </div>
+        <div *ngIf="getAnswer(qst.id?qst.id:-1)===1" class="answer-indicator yes"></div>
+        <div *ngIf="getAnswer(qst.id?qst.id:-1)===2" class="answer-indicator no"></div>
+    </div>
+</div>
+<div mat-dialog-actions class="mission-dialog-footer" align="end">
+  <button mat-button [mat-dialog-close]="{availableQstsSubMissions: availableQstsSubMissions, availableSubMissions: availableSubMissions, availableMissions: availableMissions}">Fermer</button>
+  <button mat-button (click)="finishSubMiss()" [disabled]="isAllQSTsAnswered() === false">Terminée sous-mission</button>
+</div>
+
+
+

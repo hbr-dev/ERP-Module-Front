@@ -1,0 +1,24 @@
+<h1 mat-dialog-title>Grouper les boutiques sélectionnées</h1>
+<div mat-dialog-content class="mission-dialog-content">
+    <p>Nommer le groupe ?</p>
+    <form [formGroup]="groupForm" class="add-form">
+        <div class="field-container">
+            <mat-form-field>
+                <mat-label>Nom</mat-label>
+                <input matInput [value]="groupData.groupName" formControlName="name" />
+                <mat-error *ngIf="groupForm.controls.name.hasError('required')">Champ obligatoire *</mat-error>
+            </mat-form-field>
+        </div>
+    </form>
+    <span *ngIf="groupNameExist===true" class="failed-info">Nom du groupe exisite déjà!</span>
+    <span *ngIf="failedToGroup===true" class="failed-info">Impossible de regroupper, réssayer ulturièrement.</span>
+    <span *ngIf="groupped===true" class="success-info">Groupe créer.</span>
+</div>
+<div mat-dialog-actions class="mission-dialog-footer" align="end">
+    <button mat-button (click)="onCancel()">Annuler</button>
+    <button mat-button [disabled]="!groupForm.valid" (click)="group()">Groupper</button>
+</div>
+<!-- ------------------------------- -->
+<div *ngIf="inProgress===true" class="progress-spinner-container">
+    <mat-spinner></mat-spinner>
+</div>

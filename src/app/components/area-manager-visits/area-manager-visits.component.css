@@ -1,0 +1,47 @@
+.visits-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.visits-list .visit-card {
+    width: 350px;
+    margin-left: 20px;
+    margin-top: 10px;
+    margin-right: 20px;
+    margin-bottom: 10px;
+}
+
+.visits-list .visit-card .header-image {
+    background-size: cover;
+}
+
+.visits-list .visit-card mat-card-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* .visits-list .visit-card mat-card-content .address {
+    color: #7FB2DD;
+} */
+/* ################################################ */
+.no-data {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.no-data mat-icon {
+    height: 75px;
+    width: 75px;
+    font-size: 75px;
+    color: #EE9600;
+}
+
+.no-data b {
+    color: #999FA9;
+    font-size: medium;
+    letter-spacing: 1.8px;
+}

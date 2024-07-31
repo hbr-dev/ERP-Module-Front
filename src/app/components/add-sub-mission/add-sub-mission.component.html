@@ -1,0 +1,64 @@
+<h1 *ngIf="addNewQuestion===false" mat-dialog-title class="submission-dialog-title">Affecter des sous-missions</h1>
+<div *ngIf="addNewQuestion===false" mat-dialog-content class="submission-dialog-content">
+  <form [formGroup]="subMissionForm">
+    <div class="field-container">
+      <mat-form-field>
+        <mat-label>Nom du sous-mission</mat-label>
+        <input matInput formControlName="subMissionName" />
+        <mat-error *ngIf="subMissionForm.controls.subMissionName.hasError('required')">Champ obligatoire *</mat-error>
+      </mat-form-field>
+      <mat-error *ngIf="subMissExist===true">Sous-mission est déjà affectée!</mat-error>
+    </div>
+    <div class="field-container">
+      <mat-form-field>
+        <mat-label>Question(s) du sous-mission</mat-label>
+        <mat-select formControlName="subMissionQuestions" multiple>
+          <mat-select-trigger>
+            {{subMissionForm.controls.subMissionQuestions.value?.[0] || ''}}
+            <span *ngIf="(subMissionForm.controls.subMissionQuestions.value?.length || 0) > 1">
+              (+{{(subMissionForm.controls.subMissionQuestions.value?.length || 0) - 1}} {{subMissionForm.controls.subMissionQuestions.value?.length === 2 ? 'autre' : 'autres'}})
+            </span>
+          </mat-select-trigger>
+          <mat-option *ngFor="let qst of availableQuestions" [value]="qst.question" [disabled]="qst.id===0">{{qst.question}}</mat-option>
+          <div class="add-qst-btn-container">
+            <button class="add-qst-btn" (click)="addNewQuestion=true">Ajouter une question +</button>
+          </div>
+        </mat-select>
+        <mat-error *ngIf="subMissionForm.controls.subMissionQuestions.hasError('required')">Selectionner le(s) question(s) du sous-mission</mat-error>
+      </mat-form-field>
+    </div>
+  </form>
+  <div class="success-info" *ngIf="qstSubMissAdded"> Sous-mission bien affectée </div>
+  <div class="failed-info" *ngIf="failedToAddQSTSubMiss"> Une erreur se produite, réssayer! </div>
+  <div class="failed-info" *ngIf="formNotValid===true" > Valider tous les champs! </div>
+</div>
+<div *ngIf="addNewQuestion===false" mat-dialog-actions class="submission-dialog-footer" align="end">
+  <button mat-button [mat-dialog-close]="availableSubmissions">Annuler</button>
+  <button mat-button (click)="addSubMission(missionData.missionId)">Enregistrer</button>
+</div>
+<!-- ------------------------------ -->
+<h1 *ngIf="addNewQuestion===true" mat-dialog-title class="submission-dialog-title">Ajouter une question</h1>
+<div *ngIf="addNewQuestion===true" mat-dialog-content class="submission-dialog-content">
+  <form [formGroup]="questionForm">
+    <div class="field-container">
+      <mat-form-field>
+        <mat-label>Question</mat-label>
+        <textarea matInput #input formControlName="question"></textarea>
+        <mat-hint align="end">{{input.value.length}}/250</mat-hint>
+        <mat-error *ngIf="questionForm.controls.question.hasError('required')">Champ obligatoire *</mat-error>
+      </mat-form-field>
+      <span *ngIf="qstExist===true" class="failed-info">Question existe déjà!</span>
+      <span *ngIf="qstAdded===true" class="success-info">Question est bien sauvegardée.</span>
+      <span *ngIf="failedToAddQST===true" class="failed-info">Une erreur se produite réssayer une autre fois.</span>
+    </div>
+  </form>
+</div>
+<!-- ------------------------------- -->
+<div *ngIf="addNewQuestion===true" mat-dialog-actions class="submission-dailog-footer" align="end">
+  <button mat-button (click)="addNewQuestion=false"><mat-icon fontIcon="arrow_back"></mat-icon></button>
+  <button mat-button (click)="addQuestion()">Ajouter</button>
+</div>
+<!-- ------------------------------- -->
+<div *ngIf="inProgress===true" class="progress-spinner-container">
+  <mat-spinner></mat-spinner>
+</div>

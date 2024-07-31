@@ -1,0 +1,36 @@
+<div class="container">
+    <div class="title"><p>Listes de missions affectées à cette boutiques</p></div>
+    <div class="missions-box">
+        <div class="mission" *ngFor="let mission of availableMissions;">
+            <div class="left-side">
+                <div class="mission-name"> 
+                    {{ mission.name }} 
+                    <mat-icon 
+                    fontIcon="forum"
+                    style="margin-left: 10px; color: #3968B0; cursor: pointer;"
+                    matTooltip="Consulter l'états d'actions"
+                    ></mat-icon> 
+                </div>
+                <div class="mission-desc"> {{ mission.descriprtion }} </div>
+                <div *ngIf="mission.status === 1" class="mission-status completed"> Terminée </div>
+                <div *ngIf="mission.status === -1" class="mission-status canceled"> Expirée </div>
+                <div *ngIf="mission.status === 2" class="mission-status inProgress"> En cours... </div>
+            </div>
+            <div class="right-side">
+                <div class="calendar">
+                    <mat-icon fontIcon="calendar_month" class="icon" inline="true"></mat-icon>
+                </div>
+                <div class="date-estimation">
+                    <div class="start-date"> {{ mission.start_date | date:'mediumDate' }} </div>
+                    <div class="to"><mat-icon fontIcon="arrow_right"></mat-icon></div>
+                    <div class="end-date">{{ mission.end_date | date:'mediumDate' }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="availableMissions.length === 0" class="no-data">
+        <mat-icon fontIcon="warning"></mat-icon>
+        <b>Aucunes données disponibles!</b>
+    </div>
+</div>
+

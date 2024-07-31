@@ -1,0 +1,8 @@
+<h1 mat-dialog-title class="dialog-title">Selectionner un ou plusieurs area-manager(s)</h1>
+<div mat-dialog-content class="dialog-content">
+    <p *ngFor="let areaManager of areaManagers; let i = index"><mat-checkbox (change)="updateSelectedAreaManagers(i)">{{ areaManager.name }}</mat-checkbox></p>
+</div>
+<div mat-dialog-actions class="dialog-footer" align="end">
+    <button mat-button (click)="onCancel()">Annuler</button>
+    <button mat-button (click)="affectAreaMangers()" cdkFocusInitial>Enregistrer</button>
+</div>

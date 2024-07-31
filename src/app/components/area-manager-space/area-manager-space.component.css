@@ -1,0 +1,279 @@
+.container {
+    height: calc(100vh - 125px);
+    margin: 30px;
+    overflow-y: auto;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.container::-webkit-scrollbar {
+    display: none;
+}
+/* ------------- Container header ------------- */
+.container .header {
+    background-color: #7FB2DD;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.header .total-missions {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.header .total-missions .title {
+    font-size: clamp(1.375rem, 1.2733rem + 0.5085vw, 1.75rem);
+    font-weight: bolder;
+    color: white;
+}
+
+.header .total-missions .total {
+    /* background-color: #F8E43F; */
+    background: rgb(127,178,221);
+    background: linear-gradient(0deg, rgba(127,178,221,1) 0%, rgba(229,243,255,1) 100%); 
+    height: 100px;
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100px;
+    color: black;
+    font-size: clamp(1.375rem, 1.3411rem + 0.1695vw, 1.5rem);
+    font-weight: bolder;
+}
+
+.header .missions-details {
+    display: flex;
+    margin-top: 10px;
+}
+
+.header .missions-details .realized-missions,
+.header .missions-details .progress-missions,
+.header .missions-details .canceled-missions {
+    background-color: #F8E43F;
+    height: 80px;
+    width: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 20px;
+}
+/* -------------------------------------------- */
+/* -------------- Container body -------------- */
+.container .body {
+    /* display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between; */
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+@media screen and (max-width: 1800px) {
+    .container .body {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+}
+
+@media screen and (max-width: 1300px) {
+    .container .body {
+        display: grid;
+        grid-template-columns: 1fr;
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+}
+
+.body .mission-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-right: 10px;
+    margin-bottom: 20px;
+    margin-left: 10px;
+}
+/* ############################################### */
+/* - Mission */
+.body .mission-container .mission {
+    flex: 60%;
+    position: relative;
+    height: 320px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 20px;
+    border: 1px solid #999fa93f;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    z-index: 1;
+}
+/* - Mission >>> header */
+.body .mission-container .mission .mission-details {
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.body .mission-container .mission .mission-details .title .dates {
+    font-size: clamp(0.5625rem, 0.5117rem + 0.2542vw, 0.75rem);
+    font-weight: bolder;
+    margin-bottom: 10px;
+}
+
+.body .mission-container .mission .mission-details .title .name {
+    color: #7FB2DD;
+    font-size: clamp(1rem, 0.8983rem + 0.5085vw, 1.375rem);
+    font-weight: bolder;
+    margin-top: 10px;
+}
+
+.icon {
+    background-color: #7FB2DD;
+    height: 50px;
+    width: 50px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon:hover {
+    cursor: pointer;
+    transition: color 0.5s ease-in-out;
+}
+/* - Mission >>> body */
+.body .mission-container .mission .mission-desc {
+    height: 200px;
+    font-size: clamp(0.75rem, 0.6822rem + 0.339vw, 1rem);
+    color: #999FA9;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    line-height: 25px;
+    overflow-y: auto;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.body .mission-container .mission .mission-desc::-webkit-scrollbar {
+    display: none;
+}
+/* - Mission >>> footer */
+.body .mission-container .mission .mission-actions {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.body .mission-container .mission .mission-actions .ico {
+    margin-left: 10px;
+}
+
+.body .mission-container .mission .mission-actions .ico mat-icon {
+    height: 30px;
+    width: 30px;
+    font-size: 30px;
+}
+
+.body .mission-container .mission .mission-actions .action {
+    color: #3968B0;
+}
+
+.body .mission-container .mission .mission-actions .attach-files {
+    color: #3968B0;
+}
+
+.body .mission-container .mission .mission-actions mat-icon {
+    font-size: 40px;
+    cursor: pointer;
+}
+/* ############################################### */
+.body .mission-container .sub-missions {
+    flex: 40%;
+    height: 320px;
+    padding-left: 20px;
+    padding-right: 20px;
+    overflow-y: auto;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.body .mission-container .sub-missions::-webkit-scrollbar {
+    display: none;
+}
+
+
+.body .mission-container .sub-missions .submission-container {
+    background-color: #DDDDDD;
+    height: 150px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-radius: 20px;
+}
+
+.body .mission-container .sub-missions .submission-container .icon-container {
+    height: 40px;
+    /* width: 150px; */
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.body .mission-container .sub-missions .submission-container .icon-container .icon {
+    background-color: #3968B0;
+    height: 30px;
+    width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.body .mission-container .sub-missions .submission-container .icon-container .icon mat-icon {
+    color: white;
+}
+
+.body .mission-container .sub-missions .submission-container .title {
+    /* width: 150px; */
+    height: 70px;
+    color: #3968B0;
+    margin-left: 5px;
+    margin-right: 5px;
+    font-size: clamp(0.625rem, 0.5233rem + 0.5085vw, 1rem);
+    font-weight: bolder;
+    display: flex;
+    align-items: center;
+}
+/* -------------------------------------------- */
+
+
+/* @media screen and (max-width: 600px) {
+    .body .mission-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .body .mission-container .sub-missions {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+} */

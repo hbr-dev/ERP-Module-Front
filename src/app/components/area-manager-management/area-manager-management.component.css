@@ -1,0 +1,41 @@
+.container {
+    padding: 20px;
+}
+
+.container .mat-mdc-form-field {
+    font-size: clamp(0.6875rem, 0.6197rem + 0.339vw, 0.9375rem);
+    width: 100%;
+}
+
+.container .data-table {
+    max-height: calc(100vh - 300px);
+    overflow-y: auto;
+}
+
+.container .data-table .action-clmn mat-icon {
+    margin-left: 10px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.container .data-table .action-clmn .edit-action {
+    color: #7FB2DD;
+}
+
+.container .data-table .action-clmn .delete-action {
+    color: #EE9600;
+}
+
+.add-btn-container {
+    /* background-color: red; */
+    display: inline-block;
+    position: -webkit-sticky;
+    position: sticky;
+    left: 100%;
+    margin: 20px;
+}
+
+.add-btn-container .btn {
+    background-color: #7FB2DD;
+}
+

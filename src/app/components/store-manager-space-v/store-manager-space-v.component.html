@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="title"><p>Listes des visites affectées à cette boutiques</p></div>
+    <div class="visits-box">
+        <div class="visit" *ngFor="let visit of availableVisits;">
+            <div class="left-side">
+                <div class="visit-name"> VISIT-00{{ visit.id }} </div>
+                <div class="area-manager"> {{ getAreaMangerName(visit.store_id?visit.store_id:15) }} </div>
+                <div *ngIf="visit.status === 1" class="visit-status completed"> Terminée </div>
+                <div *ngIf="visit.status === -1" class="visit-status canceled"> Annulée </div>
+                <div *ngIf="visit.status === 2" class="visit-status inProgress"> En cours... </div>
+            </div>
+            <div class="right-side">
+                <div class="calendar">
+                    <mat-icon fontIcon="calendar_month" class="icon" inline="true"></mat-icon>
+                </div>
+                <div class="date">
+                    <div class="start-date"> {{ visit.visit_date | date:'mediumDate' }} </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="availableVisits.length === 0" class="no-data">
+        <mat-icon fontIcon="warning"></mat-icon>
+        <b>Aucunes données disponibles!</b>
+    </div>
+</div>
+

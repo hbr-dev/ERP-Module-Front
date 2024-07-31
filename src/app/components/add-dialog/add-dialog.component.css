@@ -1,0 +1,57 @@
+.add-form .field {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.add-form .error-message {
+    font-size: clamp(0.5625rem, 0.5117rem + 0.2542vw, 0.75rem);
+}
+
+.progress-spinner-container,
+.mission-status-container {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: #ddddddb0;
+    top: 0;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.success-info {
+    display: block;
+    margin-top: 10px;
+    font-size: clamp(0.5625rem, 0.5117rem + 0.2542vw, 0.75rem);
+    letter-spacing: 1.5px;
+    color: green;
+    opacity: 0;
+    animation: fade-in 7s ease-in forwards;
+}
+
+.failed-info {
+    display: block;
+    margin-top: 10px;
+    font-size: clamp(0.5625rem, 0.5117rem + 0.2542vw, 0.75rem);
+    letter-spacing: 1.5px;
+    color: red;
+    opacity: 0;
+    animation: fade-in 7s ease-in forwards;
+}
+
+@keyframes fade-in {
+    5% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 0.9;
+    }
+    100% {
+        opacity: 0;
+        display: none;
+    }
+}
+

@@ -1,0 +1,29 @@
+<h1 mat-dialog-title class="mission-dialog-title">Nouveau area-manager</h1>
+<div mat-dialog-content class="mission-dialog-content">
+  <p>Saisie un nouveau area-manager, touts les champs sont obligatoire.</p>
+  <form [formGroup]="areaManagerForm" class="add-form">
+    <mat-form-field class="field">
+      <mat-label>Area-manager nom</mat-label>
+      <input matInput name="name" placeholder="Ex. foulen ben foulen" formControlName="nameController">
+      <mat-error class="error-message" *ngIf="areaManagerForm.controls.nameController.hasError('required')">Champ obligatoire *</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="field">
+      <mat-label>Area-manager e-mail</mat-label>
+      <input matInput name="email" placeholder="Ex. foulen203@gmail.com" formControlName="emailController" />
+      <mat-error class="error-message" *ngIf="areaManagerForm.controls.emailController.hasError('required')">Champ obligatoire *</mat-error>
+      <mat-error class="error-message" *ngIf="areaManagerForm.controls.emailController.hasError('email')"> E-mail non valide *</mat-error>
+    </mat-form-field>
+  </form>
+  <span *ngIf="mailExist===true" class="failed-info">E-mail exisite déjà!</span>
+  <span *ngIf="failedToAddAreaManager===true" class="failed-info">Impossible d'ajouter l'area-manager, réssayer ulturièrement.</span>
+  <span *ngIf="areaManagerAdded===true" class="success-info">Area-manager est bien ajouté.</span>
+</div>
+<div mat-dialog-actions class="mission-dialog-footer" align="end">
+  <button mat-button [mat-dialog-close]="areaManagers">Annuler</button>
+  <button mat-button [disabled]="!areaManagerForm.valid" (click)="addAreaManager()">Enregistrer</button>
+</div>
+<!-- ------------------------------- -->
+<div *ngIf="inProgress===true" class="progress-spinner-container">
+  <mat-spinner></mat-spinner>
+</div>

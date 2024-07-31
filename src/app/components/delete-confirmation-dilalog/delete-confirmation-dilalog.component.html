@@ -1,0 +1,26 @@
+<h1 mat-dialog-title class="mission-dialog-title">Confirmation</h1>
+<div *ngIf="failedToDelete===false && areaManagerDeleted===false" mat-dialog-content class="mission-dialog-content">
+    <p>Vous êtes sur le point de supprimer l'area-manger n° {{ areaManagerData.areaManagerId }}, supprimer?</p>
+</div>
+<!-- ------------------------------- -->
+<div *ngIf="areaManagerDeleted===true" mat-dialog-content class="mission-dialog-content info">
+  <mat-icon fontIcon="check" class="ok"></mat-icon>
+  <h3 class="ok">Area-manager n° {{ areaManagerData.areaManagerId }} est supprimé.</h3>
+</div>
+
+<div *ngIf="failedToDelete===true" mat-dialog-content class="mission-dialog-content info">
+  <mat-icon fontIcon="person_alert" class="failed"></mat-icon>
+  <h3 class="failed">Impossible de supprimer l'Area-manager n° {{ areaManagerData.areaManagerId }}!</h3>
+</div>
+<!-- ------------------------------- -->
+<div mat-dialog-actions class="mission-dialog-footer" align="end">
+  <button mat-button [mat-dialog-close]="areaManagers" style="background-color: #3968B0; color: white;">Annuler</button>
+  <button mat-button *ngIf="failedToDelete===false && areaManagerDeleted===false" (click)="deleteAreaManager(areaManagerData.areaManagerId)" cdkFocusInitial style="background-color: red; color: white;">Supprimer</button>
+</div>
+<!-- ------------------------------- -->
+<div *ngIf="inProgress===true" class="progress-spinner-container">
+  <mat-spinner></mat-spinner>
+</div>
+
+
+

@@ -1,0 +1,69 @@
+.visit-dialog-content {
+  position: relative;
+}
+
+.field-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #333;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+mat-label {
+  font-size: clamp(0.75rem, 0.7161rem + 0.1695vw, 0.875rem);
+  color: #333;
+}
+
+input,
+mat-option {
+  font-size: clamp(0.625rem, 0.5572rem + 0.339vw, 0.875rem);
+}
+
+.success-info {
+  display: block;
+  margin-top: 10px;
+  font-size: clamp(0.5625rem, 0.5117rem + 0.2542vw, 0.75rem);
+  letter-spacing: 1.5px;
+  color: green;
+  opacity: 0;
+  animation: fade-in 7s ease-in forwards;
+}
+
+.failed-info {
+  display: block;
+  margin-top: 10px;
+  font-size: clamp(0.5625rem, 0.5117rem + 0.2542vw, 0.75rem);
+  letter-spacing: 1.5px;
+  color: red;
+  opacity: 0;
+  animation: fade-in 7s ease-in forwards;
+}
+
+@keyframes fade-in {
+  5% {
+      opacity: 1;
+  }
+  90% {
+      opacity: 0.9;
+  }
+  100% {
+      opacity: 0;
+      display: none;
+  }
+}
+
+.progress-spinner-container {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: #ddddddb0;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
